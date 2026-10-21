@@ -47,15 +47,27 @@ Add to `claude_desktop_config.json`:
 claude mcp add claude-track -- node /absolute/path/to/Claude-track/dist/index.js
 ```
 
-### claude.ai custom connector (remote, HTTP)
+### claude.ai custom connector — free, always-on (Cloudflare Workers)
+
+Runs on Cloudflare's free plan (100,000 requests/day, no credit card, nothing to keep running).
+
+1. Sign up at <https://dash.cloudflare.com/sign-up> (free).
+2. In the dashboard: **Workers & Pages → Create → Import a repository**, connect GitHub and
+   pick `Owlsnet/Claude-track`. Keep the defaults (deploy command `npx wrangler deploy`) and
+   click **Deploy**. Every push to `master` redeploys automatically.
+3. Copy the URL it gives you, e.g. `https://claude-track.<your-subdomain>.workers.dev`.
+4. In claude.ai go to **Settings → Connectors → Add custom connector** and enter
+   `https://claude-track.<your-subdomain>.workers.dev/mcp`.
+
+Alternatively, from a terminal: `npx wrangler login && npm run deploy`.
+
+To test the Worker locally: `npm run dev` (serves `http://localhost:8787/mcp`).
+
+### Self-hosted HTTP (optional)
 
 ```bash
 PORT=3000 npm run start:http    # serves MCP at http://localhost:3000/mcp
 ```
-
-Deploy it somewhere with a public HTTPS URL (Render, Fly.io, Railway, a VPS…), then in
-claude.ai go to **Settings → Connectors → Add custom connector** and enter
-`https://<your-host>/mcp`.
 
 ## Notes
 
