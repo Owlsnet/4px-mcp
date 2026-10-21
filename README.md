@@ -1,4 +1,4 @@
-# 📦 Claude Track
+# 📦 4px-mcp
 
 Ask Claude where your **4PX** parcel is.
 
@@ -6,23 +6,23 @@ Ask Claude where your **4PX** parcel is.
 >
 > **Claude:** It's on its way from China to the UAE. The flight landed on Oct 20 at 21:05, and it's been in transit for 7 days…
 
-Claude Track is a small [MCP](https://modelcontextprotocol.io) connector that gets live tracking data from
+4px-mcp is a small [MCP](https://modelcontextprotocol.io) connector that gets live tracking data from
 [track.4px.com](https://track.4px.com). It runs **free and always on** with Cloudflare Workers, so there
 are no servers to pay for and no computer to leave on.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Owlsnet/Claude-track)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Owlsnet/4px-mcp)
 
 ## Set up (about 5 minutes, free)
 
 1. Click **Deploy to Cloudflare** above. Sign in or create a free Cloudflare account (no credit card
    needed), then click **Deploy**.
 2. When it finishes, copy your Worker's URL. It looks like
-   `https://claude-track.<your-name>.workers.dev`.
+   `https://4px-mcp.<your-name>.workers.dev`.
 3. On [claude.ai](https://claude.ai), open **Settings → Connectors → Add custom connector** and paste
    that URL with **`/mcp`** on the end:
 
    ```
-   https://claude-track.<your-name>.workers.dev/mcp
+   https://4px-mcp.<your-name>.workers.dev/mcp
    ```
 
 That's it. The connector then works in Claude on the web, desktop and mobile.
@@ -46,8 +46,8 @@ once 4PX hands the parcel to a local carrier, that carrier's tracking number.
 You need [Node.js](https://nodejs.org) 20 or newer.
 
 ```bash
-git clone https://github.com/Owlsnet/Claude-track.git
-cd Claude-track
+git clone https://github.com/Owlsnet/4px-mcp.git
+cd 4px-mcp
 npm install
 npm run build
 ```
@@ -55,7 +55,7 @@ npm run build
 **Claude Code**
 
 ```bash
-claude mcp add claude-track -- node /absolute/path/to/Claude-track/dist/index.js
+claude mcp add 4px-mcp -- node /absolute/path/to/4px-mcp/dist/index.js
 ```
 
 **Claude Desktop**: add this to `claude_desktop_config.json`:
@@ -63,9 +63,9 @@ claude mcp add claude-track -- node /absolute/path/to/Claude-track/dist/index.js
 ```json
 {
   "mcpServers": {
-    "claude-track": {
+    "4px-mcp": {
       "command": "node",
-      "args": ["/absolute/path/to/Claude-track/dist/index.js"]
+      "args": ["/absolute/path/to/4px-mcp/dist/index.js"]
     }
   }
 }

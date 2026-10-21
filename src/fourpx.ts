@@ -83,7 +83,7 @@ async function fetchBatch(codes: string[], language: string): Promise<Parcel[]> 
     headers: {
       "Content-Type": "application/json",
       Referer: "https://track.4px.com/",
-      "User-Agent": "Mozilla/5.0 (compatible; claude-track/0.1)",
+      "User-Agent": "Mozilla/5.0 (compatible; 4px-mcp/0.1)",
     },
     body: JSON.stringify({ queryCodes: codes, language, translateLanguage: language }),
     signal: AbortSignal.timeout(20_000),

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { formatParcel, trackParcels } from "./fourpx.js";
 
 export function createServer(): McpServer {
-  const server = new McpServer({ name: "claude-track", version: "0.1.0" });
+  const server = new McpServer({ name: "4px-mcp", version: "0.1.0" });
 
   server.registerTool(
     "track_4px_parcel",

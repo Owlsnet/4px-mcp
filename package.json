@@ -1,11 +1,11 @@
 {
-  "name": "claude-track",
+  "name": "4px-mcp",
   "version": "0.1.0",
   "description": "Track 4PX parcels from Claude — a free, always-on MCP connector on Cloudflare Workers",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "claude-track": "dist/index.js"
+    "4px-mcp": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -16,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Owlsnet/Claude-track.git"
+    "url": "git+https://github.com/Owlsnet/4px-mcp.git"
   },
-  "homepage": "https://github.com/Owlsnet/Claude-track#readme",
+  "homepage": "https://github.com/Owlsnet/4px-mcp#readme",
   "bugs": {
-    "url": "https://github.com/Owlsnet/Claude-track/issues"
+    "url": "https://github.com/Owlsnet/4px-mcp/issues"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",

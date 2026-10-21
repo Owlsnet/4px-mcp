@@ -7,7 +7,7 @@ export default {
     const { pathname } = new URL(request.url);
 
     if (pathname !== "/mcp") {
-      return new Response("claude-track MCP server. Endpoint: /mcp");
+      return new Response("4px-mcp MCP server. Endpoint: /mcp");
     }
     if (request.method !== "POST") {
       return Response.json(
