@@ -1,34 +1,64 @@
-# claude-track
+# 📦 Claude Track
 
-An MCP connector that lets Claude track **4PX** parcels (the same data as
-<https://track.4px.com>).
+Ask Claude where your **4PX** parcel is.
 
-## Tool
+> **You:** Where is my parcel 4PX3003261441657CN?
+>
+> **Claude:** It's on its way from China to the UAE. The flight landed on Oct 20 at 21:05, and it's been in transit for 7 days…
 
-`track_4px_parcel`
+Claude Track is a small [MCP](https://modelcontextprotocol.io) connector that gets live tracking data from
+[track.4px.com](https://track.4px.com). It runs **free and always on** with Cloudflare Workers, so there
+are no servers to pay for and no computer to leave on.
 
-| arg | type | |
-|---|---|---|
-| `tracking_numbers` | string[] (1–100) | e.g. `["4PX3003261441657CN"]` |
-| `max_events` | number, optional | only return the N most recent events per parcel |
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Owlsnet/Claude-track)
 
-Returns origin → destination, days in transit, the last-mile tracking number (when 4PX has
-handed off to a local carrier), the latest event and the full history.
+## Set up (about 5 minutes, free)
 
-Example prompt: *"Where is my parcel 4PX3003261441657CN?"*
+1. Click **Deploy to Cloudflare** above. Sign in or create a free Cloudflare account (no credit card
+   needed), then click **Deploy**.
+2. When it finishes, copy your Worker's URL. It looks like
+   `https://claude-track.<your-name>.workers.dev`.
+3. On [claude.ai](https://claude.ai), open **Settings → Connectors → Add custom connector** and paste
+   that URL with **`/mcp`** on the end:
 
-## Build
+   ```
+   https://claude-track.<your-name>.workers.dev/mcp
+   ```
+
+That's it. The connector then works in Claude on the web, desktop and mobile.
+
+Cloudflare's free plan covers 100,000 requests a day, and each parcel lookup is one request.
+
+## What Claude gets
+
+One tool, `track_4px_parcel`:
+
+| Input | Description |
+|---|---|
+| `tracking_numbers` | 1–100 tracking numbers, e.g. `["4PX3003261441657CN"]` |
+| `max_events` *(optional)* | Only return the N most recent events per parcel |
+
+For each parcel it returns the route, days in transit, the latest event, the full event history and,
+once 4PX hands the parcel to a local carrier, that carrier's tracking number.
+
+## Run locally instead (optional)
+
+You need [Node.js](https://nodejs.org) 20 or newer.
 
 ```bash
+git clone https://github.com/Owlsnet/Claude-track.git
+cd Claude-track
 npm install
 npm run build
 ```
 
-## Use it
+**Claude Code**
 
-### Claude Desktop (local, stdio)
+```bash
+claude mcp add claude-track -- node /absolute/path/to/Claude-track/dist/index.js
+```
 
-Add to `claude_desktop_config.json`:
+**Claude Desktop**: add this to `claude_desktop_config.json`:
 
 ```json
 {
@@ -41,35 +71,27 @@ Add to `claude_desktop_config.json`:
 }
 ```
 
-### Claude Code
+## Development
 
-```bash
-claude mcp add claude-track -- node /absolute/path/to/Claude-track/dist/index.js
+| Command | What it does |
+|---|---|
+| `npm run dev` | Run the Worker locally at `http://localhost:8787/mcp` |
+| `npm run deploy` | Deploy to your Cloudflare account (`npx wrangler login` first) |
+| `npm run typecheck` | Type-check the project |
+
 ```
-
-### claude.ai custom connector — free, always-on (Cloudflare Workers)
-
-Runs on Cloudflare's free plan (100,000 requests/day, no credit card, nothing to keep running).
-
-1. Sign up at <https://dash.cloudflare.com/sign-up> (free).
-2. In the dashboard: **Workers & Pages → Create → Import a repository**, connect GitHub and
-   pick `Owlsnet/Claude-track`. Keep the defaults (deploy command `npx wrangler deploy`) and
-   click **Deploy**. Every push to `master` redeploys automatically.
-3. Copy the URL it gives you, e.g. `https://claude-track.<your-subdomain>.workers.dev`.
-4. In claude.ai go to **Settings → Connectors → Add custom connector** and enter
-   `https://claude-track.<your-subdomain>.workers.dev/mcp`.
-
-Alternatively, from a terminal: `npx wrangler login && npm run deploy`.
-
-To test the Worker locally: `npm run dev` (serves `http://localhost:8787/mcp`).
-
-### Self-hosted HTTP (optional)
-
-```bash
-PORT=3000 npm run start:http    # serves MCP at http://localhost:3000/mcp
+src/
+├── fourpx.ts   4PX tracking client and output formatting
+├── server.ts   MCP server and the track_4px_parcel tool
+├── worker.ts   Cloudflare Workers entry point (HTTP)
+└── index.ts    Local entry point (stdio)
 ```
 
 ## Notes
 
-This uses the unofficial JSON endpoint behind 4PX's public tracking page
-(`track.4px.com/track/v2/front/listTrackV3`). It needs no API key but may change without notice.
+4PX doesn't offer a public tracking API, so this uses the same endpoint as their tracking website. It
+needs no API key, but 4PX could change it without notice.
+
+## License
+
+[MIT](LICENSE)

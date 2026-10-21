@@ -1,12 +1,16 @@
 {
   "name": "claude-track",
   "version": "0.1.0",
-  "description": "MCP connector for tracking 4PX parcels with Claude",
-  "main": "dist/index.js",
+  "description": "Track 4PX parcels from Claude — a free, always-on MCP connector on Cloudflare Workers",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "claude-track": "dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "start": "node dist/index.js",
-    "start:http": "node dist/index.js --http",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
@@ -14,24 +18,17 @@
     "type": "git",
     "url": "git+https://github.com/Owlsnet/Claude-track.git"
   },
-  "license": "MIT",
+  "homepage": "https://github.com/Owlsnet/Claude-track#readme",
   "bugs": {
     "url": "https://github.com/Owlsnet/Claude-track/issues"
   },
-  "homepage": "https://github.com/Owlsnet/Claude-track#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
-    "express": "^5.3.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
     "@types/node": "^26.6.5",
     "typescript": "^7.0.2",
     "wrangler": "^4.151.3"
-  },
-  "type": "module",
-  "bin": {
-    "claude-track": "dist/index.js"
   }
 }
