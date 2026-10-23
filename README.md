@@ -1,4 +1,4 @@
-# 📦 4px-mcp
+#  4px-mcp
 
 Ask Claude where your **4PX** parcel is.
 
