@@ -35,7 +35,7 @@ One tool, `track_4px_parcel`:
 
 | Input | Description |
 |---|---|
-| `tracking_numbers` | 1–100 tracking numbers, e.g. `["4PX3003261441657CN"]` |
+| `tracking_numbers` | 1–100 tracking numbers, e.g. `["4PX61447CN"]` |
 | `max_events` *(optional)* | Only return the N most recent events per parcel |
 
 For each parcel it returns the route, days in transit, the latest event, the full event history and,
