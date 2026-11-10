@@ -2,7 +2,7 @@
 
 Ask Claude where your **4PX** parcel is.
 
-> **You:** Where is my parcel 4PX3003261441657CN?
+> **You:** Where is my parcel 4PX0000CN?
 >
 > **Claude:** It's on its way from China to the UAE. The flight landed on Oct 20 at 21:05, and it's been in transit for 7 days…
 
